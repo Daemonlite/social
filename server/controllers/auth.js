@@ -33,30 +33,15 @@ export const register = async (req,res)=>{
 export const login = async (req, res, next) => {
   const {email,password}=req.body
 
-    const user = await User.findOne({ email, password })
-    const valid = await comparePassword(hashPassword.toString(), password)
+  const user = await User.findOne({email, password })
 
-    if(user)return res.status(200).send('login successful')
-    if(valid)return res.status(200).send('success')
-    if(!user || !valid)return res.status(400).send('check password or email')
-   
+  !user && res.status(400).json('wrong username or password')
 
-      
-    }
- 
+  const valid=await bcrypt.compare(req.body.password,user.password)
 
+   res.status(200).json({valid})
     
-    
-      // const {email,password}=req.body
-      // const user = await User.findOne({ email :email, password:password })
-     
-      // const valid = await bcrypt.compare(password,user.password)
-
-      // if (user){
-      //   return  res.status(200).send('login successful')
-      // }else{
-      //   return res.status(400).send('check email or password')
-      // }
+  }
 
       
 

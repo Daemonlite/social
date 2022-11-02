@@ -11,7 +11,7 @@ require('dotenv').config()
 const app = express()
 
 //database connection
-mongoose.connect(process.env.DATABASE,{
+mongoose.connect('mongodb+srv://Daemon:paakwesinunoo@camp.vsngift.mongodb.net/?retryWrites=true&w=majority',{
     useNewUrlParser:true,
     useUnifiedTopology:true,
     
@@ -30,5 +30,5 @@ readdirSync('./routes').map((r)=>app.use('/api',require(`./routes/${r}`)))
 
 
 
-const port = process.env.PORT
+const port = process.env.PORT || 8000
 app.listen(port, () => console.log(`server is running on port ${port}`))
