@@ -18,6 +18,13 @@ export const register = async (req,res)=>{
    const hashedPassword = await hashPassword(password)
    const user = new User({name,email,password:hashedPassword,secret})
 
+   if(user){
+    res.status(200).json('created')
+   }
+   else{
+    res.status(400).json('bad not created')
+   }
+
    try{
   await user.save()
   return res.json({
@@ -33,14 +40,17 @@ export const register = async (req,res)=>{
 export const login = async (req, res, next) => {
   const {email,password}=req.body
 
-  const user = await User.findOne({email, password })
+  const user = await User.findOne({email})
 
   !user && res.status(400).json('wrong username or password')
-
-  const valid=await bcrypt.compare(req.body.password,user.password)
-
-   res.status(200).json({valid})
-    
+           //validate user
+    const valid=await bcrypt.compare(password,user.password)
+           //send response
+    if(valid){      
+        res.status(200).json('logged in sucess')
+        }else{
+        res.status(400).json('wrong username or password')
+        }
   }
 
       
