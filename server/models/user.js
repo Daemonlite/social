@@ -22,9 +22,7 @@ const userSchema = new Schema({
    },
    secret :{
     type: String,
-    required:true,
    },
-   about: {},
    photo:String,
    following:[{type:Schema.ObjectId,ref:"User"}],
    followers:[{type:Schema.ObjectId,ref:"User"}],
