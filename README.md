@@ -1,1 +1,1 @@
-# this is going to be a full stack mern blog site with user authentication
+# user authentication with nextjs,node,express and mongo
